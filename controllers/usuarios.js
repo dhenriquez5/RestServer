@@ -52,7 +52,7 @@ const putUsuario = async(req, res = response) => {
 
 const deleteUsuario = async(req, res = response) => {
     const id = req.params.id;
-
+    const usuarioAuth = req.usuarioAuth;
     //FISICAMENTE
     //const usuarioDb = await Usuario.findByIdAndDelete(id);
 
