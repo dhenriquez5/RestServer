@@ -11,7 +11,7 @@ const isAdmin = (req=request, res = response,next)=>{
     const {rol,nombre} = req.usuarioAuth;
 
     if(rol!== 'ADMIN_ROLE'){
-        res.status(401).json({ msg: `${nombre} no tiene permiso para ejecutar la accion` })
+       return  res.status(401).json({ msg: `${nombre} no tiene permiso para ejecutar la accion` })
     }
 
     next();
