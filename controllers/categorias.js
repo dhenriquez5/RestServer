@@ -55,9 +55,7 @@ const UpdateCategorias =async (req, res = response) => {
     data.nombre= data.nombre.toUpperCase();
     data.usuario = req.usuarioAuth._id;
 
-    console.log(data);
     const categoriaUpdated = await Categoria.findByIdAndUpdate(id,data,{new:true});
-    console.log(categoriaUpdated)
     res.json(categoriaUpdated);
 }
 
