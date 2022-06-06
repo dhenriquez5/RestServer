@@ -39,6 +39,7 @@ class Server {
       this.app.use('/api/categorias',require('../routes/categorias'))
       this.app.use('/api/productos',require('../routes/productos'))
       this.app.use('/api/busquedas',require('../routes/busquedas'))
+      this.app.use('/api/uploads',require('../routes/uploads'))
 
     }
 
