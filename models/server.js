@@ -2,6 +2,7 @@ require('dotenv').config()
 const express = require('express');
 var cors = require('cors')
 const {dbConnection} = require('../db/config')
+const fileUpload = require('express-fileupload');
 
 class Server {
     constructor() {
@@ -30,6 +31,13 @@ class Server {
 
         ///CARPETA PUBLIC PARA SERVIR WEB PAGE
         this.app.use(express.static('public'))
+
+        //Carga de archivos
+        this.app.use(fileUpload({
+            useTempFiles : true,
+            tempFileDir : '/tmp/',
+            createParentPath:true
+        }));
     }
 
 
