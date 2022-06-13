@@ -1,13 +1,17 @@
 require('dotenv').config()
 const express = require('express');
 var cors = require('cors')
+const { createServer } = require('http');
 const {dbConnection} = require('../db/config')
 const fileUpload = require('express-fileupload');
+const { socketController } = require('../sockets/socketController');
 
 class Server {
     constructor() {
         this.app = express();
         this.port=process.env.PORT;
+        this.server = createServer( this.app );
+        this.io     = require('socket.io')(this.server)
 
         //CONECTAR BD
         this.conectarBd();
@@ -16,6 +20,9 @@ class Server {
         this.middleware();
 
         this.routes();
+
+        ///Sockets
+        this.sockets();
     }
 
     async conectarBd() {
@@ -51,9 +58,12 @@ class Server {
 
     }
 
+    sockets() {
+        this.io.on('connection', ( socket ) => socketController(socket, this.io ) )
+    }
 
     listen() {
-        this.app.listen(this.port, () => {
+        this.server.listen(this.port, () => {
             console.log('listening on port ' + this.port);
         })
     }
